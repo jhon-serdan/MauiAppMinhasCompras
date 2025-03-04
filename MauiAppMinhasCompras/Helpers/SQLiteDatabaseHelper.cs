@@ -39,8 +39,6 @@ namespace MauiAppMinhasCompras.Helpers
             string sql = "SELECT * Produto WHERE descricao LIKE '%" + q + "%'";
 
             return _conn.QueryAsync<Produto>(sql);
-
-
         }
 
     }

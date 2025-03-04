@@ -6,4 +6,9 @@ public partial class ListaProduto : ContentPage
 	{
 		InitializeComponent();
 	}
+
+    private async void Button_Novo_Produto(object sender, EventArgs e)
+    {
+		await Navigation.PushAsync(new NovoProduto());
+    }
 }
