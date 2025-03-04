@@ -9,6 +9,14 @@ public partial class ListaProduto : ContentPage
 
     private async void Button_Novo_Produto(object sender, EventArgs e)
     {
-		await Navigation.PushAsync(new NovoProduto());
+		try
+		{
+			await Navigation.PushAsync(new Views.NovoProduto());
+
+		} catch (Exception ex)
+		{
+			await DisplayAlert("Ops", ex.Message, "OK");
+		}
+
     }
 }
