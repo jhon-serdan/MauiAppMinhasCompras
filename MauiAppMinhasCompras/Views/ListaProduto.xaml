@@ -19,7 +19,8 @@
                     Text="Somar"
                     FontSize="12"
                     BackgroundColor="Transparent"
-                    TextColor="White"/>
+                    TextColor="White"
+                    Clicked="Button_Clicked"/>
 
             <Button Grid.Column="2"
                     Text="Adicionar"
@@ -32,11 +33,48 @@
         <SearchBar Margin="10,0,10,0"
                    Placeholder="Pesquisar item"
                    PlaceholderColor="White"
-                   >
-            
-            
+                   x:Name="txt_search"
+                   TextChanged="txt_search_TextChanged">
         </SearchBar>
-        
-        
+
+        <CollectionView x:Name="col_produtos"
+                        Margin="10,0,10,0"
+                        ItemSizingStrategy="MeasureFirstItem">
+            
+            <CollectionView.Header>
+                <Grid ColumnDefinitions="*, *, *, *, *">
+                    <Label Grid.Column="0" Text="ID" FontAttributes="Bold"/>
+                    <Label Grid.Column="1" Text="Descrição" FontAttributes="Bold"/>
+                    <Label Grid.Column="2" Text="Qtde" FontAttributes="Bold"/>
+                    <Label Grid.Column="3" Text="Preço" FontAttributes="Bold"/>
+                    <Label Grid.Column="4" Text="Total" FontAttributes="Bold"/>
+                </Grid>
+            </CollectionView.Header>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <SwipeView>
+                        <SwipeView.LeftItems>
+                            <SwipeItems Mode="Execute">
+                                <SwipeItem 
+                                    Text="Remover" 
+                                    BackgroundColor="Red"
+                                    Command="{Binding RemoveCommand}" 
+                                    CommandParameter="{Binding .}"/>
+                            </SwipeItems>
+                        </SwipeView.LeftItems>
+                        <Grid ColumnDefinitions="*, *, *, *, *">
+                            <Label Grid.Column="0" Text="{Binding Id}" />
+                            <Label Grid.Column="1" Text="{Binding Descricao}"/>
+                            <Label Grid.Column="2" Text="{Binding Quantidade}" />
+                            <Label Grid.Column="3" Text="{Binding Preco}" />
+                            <Label Grid.Column="4" Text="{Binding Total}" />
+                        </Grid>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+
     </VerticalStackLayout>
 </ContentPage>
