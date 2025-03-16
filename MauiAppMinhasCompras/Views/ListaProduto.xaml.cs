@@ -20,7 +20,9 @@ public partial class ListaProduto : ContentPage
 
     protected async override void OnAppearing()
     {
-		List<Produto> tmp = await App.DB.GetAll();
+		lista.Clear();
+
+        List<Produto> tmp = await App.DB.GetAll();
 
 		tmp.ForEach(i => lista.Add(i));
     }
