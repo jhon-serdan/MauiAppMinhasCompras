@@ -20,7 +20,7 @@
                     FontSize="12"
                     BackgroundColor="Transparent"
                     TextColor="White"
-                    Clicked="Button_Clicked"/>
+                    Clicked="Button_Clicked_Somar"/>
 
             <Button Grid.Column="2"
                     Text="Adicionar"
@@ -30,46 +30,61 @@
                     Clicked="Button_Novo_Produto"/>
         </Grid>
 
-        <SearchBar Margin="10,0,10,0"
+        <SearchBar Margin="5,0,5,0"
                    Placeholder="Pesquisar item"
                    PlaceholderColor="White"
                    x:Name="txt_search"
                    TextChanged="txt_search_TextChanged">
         </SearchBar>
 
-        <CollectionView x:Name="col_produtos"
+        <CollectionView x:Name="col_produtos" 
                         Margin="10,0,10,0"
                         ItemSizingStrategy="MeasureFirstItem">
             
             <CollectionView.Header>
-                <Grid ColumnDefinitions="*, *, *, *, *">
-                    <Label Grid.Column="0" Text="ID" FontAttributes="Bold"/>
-                    <Label Grid.Column="1" Text="Descrição" FontAttributes="Bold"/>
-                    <Label Grid.Column="2" Text="Qtde" FontAttributes="Bold"/>
-                    <Label Grid.Column="3" Text="Preço" FontAttributes="Bold"/>
-                    <Label Grid.Column="4" Text="Total" FontAttributes="Bold"/>
+                <Grid ColumnDefinitions="auto, *, *, *, *"
+                      Margin="5"
+                      BackgroundColor="Black">
+                    <Label Grid.Column="0" Text="ID" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+                    <Label Grid.Column="1" Text="Descrição" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+                    <Label Grid.Column="2" Text="Qtde" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+                    <Label Grid.Column="3" Text="Preço" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+                    <Label Grid.Column="4" Text="Total" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
                 </Grid>
             </CollectionView.Header>
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <SwipeView>
-                        <SwipeView.LeftItems>
+                        <SwipeView.RightItems>
                             <SwipeItems Mode="Execute">
                                 <SwipeItem 
                                     Text="Remover" 
                                     BackgroundColor="Red"
-                                    Command="{Binding RemoveCommand}" 
-                                    CommandParameter="{Binding .}"/>
+                                    Invoked="SwipeItem_Remover"
+                                    />
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+                        
+                        <SwipeView.LeftItems>
+                            <SwipeItems Mode="Execute">
+                                <SwipeItem 
+                                    Text="Editar" 
+                                    BackgroundColor="Blue"
+                                    Invoked="SwipeItem_Editar"/>
                             </SwipeItems>
                         </SwipeView.LeftItems>
-                        <Grid ColumnDefinitions="*, *, *, *, *">
-                            <Label Grid.Column="0" Text="{Binding Id}" />
-                            <Label Grid.Column="1" Text="{Binding Descricao}"/>
-                            <Label Grid.Column="2" Text="{Binding Quantidade}" />
-                            <Label Grid.Column="3" Text="{Binding Preco}" />
-                            <Label Grid.Column="4" Text="{Binding Total}" />
-                        </Grid>
+                        
+                        <Frame Padding="0" Margin="0" CornerRadius="5" BackgroundColor="Black">
+                            <Grid ColumnDefinitions="auto, *, *, *, *"
+                                  HeightRequest="25">
+                                <Label Grid.Column="0" Text="{Binding Id}" HorizontalTextAlignment="Center" />
+                                <Label Grid.Column="1" Text="{Binding Descricao}" HorizontalTextAlignment="Center"/>
+                                <Label Grid.Column="2" Text="{Binding Quantidade}" HorizontalTextAlignment="Center"/>
+                                <Label Grid.Column="3" Text="{Binding Preco}" HorizontalTextAlignment="Center"/>
+                                <Label Grid.Column="4" Text="{Binding Total}" HorizontalTextAlignment="Center"/>
+                            </Grid>
+                        </Frame>    
                     </SwipeView>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
