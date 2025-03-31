@@ -19,23 +19,36 @@ public partial class NovoProduto : ContentPage
     {
         try
         {
-
             Produto p = new Produto
             {
                 Descricao = txt_descricao.Text,
                 Quantidade = Convert.ToDouble(txt_quantidade.Text),
-                Preco = Convert.ToDouble(txt_preco.Text)
+                Preco = Convert.ToDouble(txt_preco.Text),
+                Categoria = txt_categoria.Text
             };
 
             await App.DB.Insert(p);
-            await DisplayAlert("Sucesso", "Registro Inserido", "OK");
 
+            // Exibir alerta com opções
+            bool telaInicial = await DisplayAlert("Sucesso", "Registro Inserido", "Tela Inicial", "Novo Produto");
 
-
-        } catch(Exception ex)
+            if (telaInicial)
+            {
+                await Navigation.PopToRootAsync();
+            }
+            else
+            {
+                txt_descricao.Text = "";
+                txt_quantidade.Text = "";
+                txt_preco.Text = "";
+                txt_categoria.Text = "";
+                txt_descricao.Focus();
+            }
+        }
+        catch (Exception ex)
         {
             await DisplayAlert("Ops", ex.Message, "OK");
         }
-
     }
+
 }
